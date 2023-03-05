@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import NavigateButton from "../../../../components/NavigateButton";
-import Q1Form from "../atom/Form";
-import ReducerQ1List from "../atom/List";
+import React, { useReducer, useState } from 'react';
+import NavigateButton from '../../../../components/NavigateButton';
+import ingredientReducer, { ADD_INGREDIENT } from '../../../../store/1_reducer';
+import Q1Form from '../atom/Form';
+import ReducerQ1List from '../atom/List';
 
 const ReducerQ1Page = () => {
   /* 
@@ -17,13 +18,33 @@ const ReducerQ1Page = () => {
           src/store/1_reducer.js에 구현해보세요
     */
 
-  const [ingredients, setIngredients] = useState([
-    { id: 1, name: "피자 도우", price: 1000 },
-    { id: 2, name: "토마토 소스", price: 500 },
-    { id: 3, name: "치즈", price: 1000 },
-    { id: 4, name: "피망", price: 500 },
-    { id: 5, name: "양파", price: 500 },
-  ]);
+  // const [ingredients, setIngredients] = useState([
+  //   { id: 1, name: "피자 도우", price: 1000 },
+  //   { id: 2, name: "토마토 소스", price: 500 },
+  //   { id: 3, name: "치즈", price: 1000 },
+  //   { id: 4, name: "피망", price: 500 },
+  //   { id: 5, name: "양파", price: 500 },
+  // ]);
+
+  const initialState = [
+    { id: 1, name: '피자 도우', price: 1000 },
+    { id: 2, name: '토마토 소스', price: 500 },
+    { id: 3, name: '치즈', price: 1000 },
+    { id: 4, name: '피망', price: 500 },
+    { id: 5, name: '양파', price: 500 },
+  ];
+
+  const [ingredients, dispatch] = useReducer(ingredientReducer, initialState);
+
+  const onSubmitIngredient = (name, price) => {
+    dispatch(
+      ADD_INGREDIENT({
+        id: Math.floor(Math.random() * 100000),
+        name,
+        price,
+      })
+    );
+  };
 
   return (
     <>
@@ -35,10 +56,10 @@ const ReducerQ1Page = () => {
             <th>가격</th>
           </tr>
         </thead>
-        <ReducerQ1List ingredients={ingredients} />
+        <ReducerQ1List ingredients={ingredients} dispatch={dispatch} />
       </table>
-      <Q1Form onSubmit={"onSubmit"} />
-      <NavigateButton isFistPage to={"/2_context/q1"} />
+      <Q1Form onSubmit={onSubmitIngredient} />
+      <NavigateButton isFistPage to={'/2_context/q1'} />
     </>
   );
 };
