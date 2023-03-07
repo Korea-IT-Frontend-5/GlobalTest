@@ -6,7 +6,8 @@ import {
 } from "../../../../store/1_reducer";
 
 const Q1Form = () => {
-  // 전역 dispatch 설정
+
+  // 전역 데이터와 dispatch 가져오기
   const ingredients = useContext(IngredientContext);
   const dispatch = useIngredientDisPatch();
 
@@ -14,9 +15,9 @@ const Q1Form = () => {
   const name = useRef();
   const price = useRef();
 
-  // 추가 로직 사용하기
+  // 재료 추가 로직을 dispatch를 이용하여 사용하기
   const onAddIngredient = (e) => {
-    e.preventDefault(); // submit의 작동 막기
+    e.preventDefault(); // form의 submit으로 인한 화면 새로고침 막기
     const id = ingredients[ingredients.length - 1].id + 1;
     dispatch(
       ADD_INGREDIENT({
