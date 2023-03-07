@@ -1,6 +1,9 @@
 // src/pages/contexts/ContextQ1/organism/ReducerQ1Page.js
+import { useContext } from "react";
 import NavigateButton from "../../../../components/NavigateButton";
-import ContextProvider from "../../../../store/1_reducer";
+import ContextProvider, {
+  IngredientContext,
+} from "../../../../store/1_reducer";
 import Q1Form from "../atom/Form";
 import ReducerQ1List from "../atom/List";
 
@@ -18,11 +21,10 @@ const ReducerQ1Page = () => {
           src/store/1_reducer.js에 구현해보세요
     */
 
-
   return (
     <>
-        <h2>문제 1</h2>
-    <ContextProvider>
+      <h2>문제 1</h2>
+      <ContextProvider>
         <table>
           <thead>
             <tr>
@@ -34,8 +36,8 @@ const ReducerQ1Page = () => {
         </table>
         <Q1Form />
         <NavigateButton isFistPage to={"/2_context/q1"} />
-    </ContextProvider>
-      </>
+      </ContextProvider>
+    </>
   );
 };
 export default ReducerQ1Page;

@@ -9,6 +9,7 @@ const ReducerQ1List = () => {
   // 전역에서 데이터와 dispatch를 불러옴
   const ingredients = useContext(IngredientContext);
   const dispatch = useIngredientDisPatch();
+  console.log(ingredients);
 
   // 삭제 로직 사용하기
   const onDeleteIngredient = (id) => {
