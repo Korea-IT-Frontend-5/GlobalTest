@@ -1,5 +1,7 @@
 export function createAction(type) {
-    return function (payload) {
-        return {type, payload};
-    };
+  console.log(type);
+  return function (payload) {
+    console.log(payload);
+    return { type, payload };
+  };
 }
