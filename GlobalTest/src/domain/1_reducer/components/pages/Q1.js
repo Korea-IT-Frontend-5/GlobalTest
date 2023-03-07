@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useReducer } from "react";
 import NavigateButton from "../../../../components/NavigateButton";
+import { ingReducer } from "../../../../store/1_reducer";
 import Q1Form from "../atom/Form";
 import ReducerQ1List from "../atom/List";
 
@@ -17,13 +19,34 @@ const ReducerQ1Page = () => {
           src/store/1_reducer.js에 구현해보세요
     */
 
-  const [ingredients, setIngredients] = useState([
+  const initialState = [
     { id: 1, name: "피자 도우", price: 1000 },
     { id: 2, name: "토마토 소스", price: 500 },
     { id: 3, name: "치즈", price: 1000 },
     { id: 4, name: "피망", price: 500 },
     { id: 5, name: "양파", price: 500 },
-  ]);
+  ];
+
+  const [ingredient,dispatch] = useReducer(ingReducer,initialState)
+
+  const onAdd = (name,price) =>{
+    dispatch({
+     type : 'add',
+     payload :{
+      id : Math.floor(Math.random() * 10000) ,
+      name,
+      price
+     }
+    })
+  }
+  const onDelete = (id) =>{
+    dispatch({
+      type : 'delete',
+      payload : {
+        id 
+      }
+    })
+  }
 
   return (
     <>
@@ -35,9 +58,9 @@ const ReducerQ1Page = () => {
             <th>가격</th>
           </tr>
         </thead>
-        <ReducerQ1List ingredients={ingredients} />
+        <ReducerQ1List ingredient={ingredient} onDelete={onDelete}/>
       </table>
-      <Q1Form onSubmit={"onSubmit"} />
+      <Q1Form onSubmit={onAdd} />
       <NavigateButton isFistPage to={"/2_context/q1"} />
     </>
   );
