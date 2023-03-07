@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import NavigateButton from "../../../../components/NavigateButton";
+import {
+  SUBMIT_USER,
+  UserContext,
+  UserDispatchContext,
+} from "../../../../store/3_context";
 import ContextQ2Form from "../atom/Q2/Form";
 import ContextQ2Form3 from "../atom/Q2/Form3";
 
@@ -13,10 +18,6 @@ const ContextQ2Page = () => {
         (단, isEdit이 true인 데이터도 전역으로 관리해주세요.)
   */
 
-  const [userList, setUserList] = useState([
-    { id: 1, name: "홍길동", nickname: "히히" },
-  ]);
-
   /*
     단, userList 상태 관리는 전역으로 관리하고 비즈니스 로직도 분리하기 위해
     useReducer, useContext를 사용하여 구현해보세요
@@ -25,6 +26,14 @@ const ContextQ2Page = () => {
 
     관련 로직은 src/store/3_context.js에 구현해주세요
   */
+
+  const users = useContext(UserContext);
+  const dispatch = useContext(UserDispatchContext);
+  console.log(users);
+
+  const SubmitBtn = () => {
+    dispatch(SUBMIT_USER());
+  };
 
   return (
     <>
@@ -36,7 +45,7 @@ const ContextQ2Page = () => {
           marginTop: "32px",
         }}
       >
-        <button>SUBMIT</button>
+        <button onClick={SubmitBtn}>SUBMIT</button>
       </div>
       <NavigateButton to={"/3_redux/q1"} />
     </>
