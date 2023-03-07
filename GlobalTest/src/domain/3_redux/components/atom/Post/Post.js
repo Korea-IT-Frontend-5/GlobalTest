@@ -1,8 +1,22 @@
+import { useContext } from "react";
+import {
+  DELETE_POST,
+  EditPostContext,
+  PostDispatchContext,
+} from "../../../../../store/4_redux";
 import Comment from "../Comment/Comment";
 import CommentForm from "../Comment/Form";
 import UserCard from "../UserCard/Card";
 
 const Post = ({ post }) => {
+  const editState = useContext(EditPostContext);
+  console.log(editState);
+
+  const dispatch = useContext(PostDispatchContext);
+
+  const onDelPost = (id) => {
+    dispatch(DELETE_POST({ id }));
+  };
   return (
     <div
       style={{
@@ -27,7 +41,14 @@ const Post = ({ post }) => {
             <Comment key={comment.id} comment={comment} />
           ))}
       </div>
-      {post.myPost && <button type="button">삭제</button>}
+      {post.myPost && (
+        <>
+          <button type="button" onClick={() => onDelPost(post.id)}>
+            삭제
+          </button>
+          <button type="button">수정</button>
+        </>
+      )}
     </div>
   );
 };
