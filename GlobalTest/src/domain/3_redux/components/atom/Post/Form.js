@@ -1,30 +1,20 @@
-import { useContext, useRef } from "react";
-import {
-  ADD_POST,
-  PostDispatchContext,
-} from "../../../../../store/4_redux";
+import { useRef } from "react";
 
-const PostForm = () => {
-  const dispatch = useContext(PostDispatchContext);
-
+const PostForm = ({ onSubmit }) => {
   const title = useRef();
   const content = useRef();
 
-  // 글 추가 로직을 dispatch를 이용하여 사용하기
-  const onAddPost = (e) => {
-    e.preventDefault(); // form의 submit으로 인한 화면 새로고침 막기
-    dispatch(
-      ADD_POST({
-        title: title.current.value,
-        content: content.current.value,
-      })
-    );
+  const onSubmitPost = (e) => {
+    e.preventDefault();
+    onSubmit(title.current.value, content.current.value);
+    title.current.value = "";
+    content.current.value = "";
   };
 
   return (
     <>
       <h2>POST-FORM</h2>
-      <form onSubmit={onAddPost}>
+      <form onSubmit={onSubmitPost}>
         <label>
           <input type="text" name="title" placeholder="제목" ref={title} />
         </label>

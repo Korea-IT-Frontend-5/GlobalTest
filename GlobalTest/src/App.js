@@ -2,16 +2,19 @@ import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./adapters/router";
 import UserContextProvider from "./store/3_context";
-import PostContextProvider from "./store/4_redux";
+import { Provider } from "react-redux";
+import reduxConfig from "./store/4_redux";
 
 function App() {
+  const store = reduxConfig();
+
   return (
     <>
-      <UserContextProvider>
-        <PostContextProvider>
+      <Provider store={store}>
+        <UserContextProvider>
           <RouterProvider router={router} />
-        </PostContextProvider>
-      </UserContextProvider>
+        </UserContextProvider>
+      </Provider>
     </>
   );
 }

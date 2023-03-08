@@ -1,22 +1,26 @@
-import { useContext } from "react";
-import {
-  DELETE_POST,
-  EditPostContext,
-  PostDispatchContext,
-} from "../../../../../store/4_redux";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { DELETE_POST, EDIT_POST } from "../../../../../store/4_redux";
 import Comment from "../Comment/Comment";
 import CommentForm from "../Comment/Form";
 import UserCard from "../UserCard/Card";
 
 const Post = ({ post }) => {
-  const editState = useContext(EditPostContext);
-  console.log(editState);
+  const dispatch = useDispatch();
 
-  const dispatch = useContext(PostDispatchContext);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editContent, setEditContent] = useState(post.content);
 
-  const onDelPost = (id) => {
-    dispatch(DELETE_POST({ id }));
+  const onChangeEditContent = (e) => setEditContent(e.target.value);
+
+  const onEditPost = () => {
+    // 수정상태일 때(완료) 버튼을 누르면
+    if (isEdit) dispatch(EDIT_POST({ id: post.id, content: editContent }));
+    setIsEdit((prev) => !prev);
   };
+
+  const onDeletePost = () => dispatch(DELETE_POST({ id: post.id }));
+
   return (
     <div
       style={{
@@ -27,7 +31,11 @@ const Post = ({ post }) => {
       <h2>{post.title}</h2>
       <UserCard user={post.User} />
       <h2>--PostContent--</h2>
-      <p>{post.content}</p>
+      {isEdit ? (
+        <textarea onChange={onChangeEditContent} value={editContent} />
+      ) : (
+        <p>{post.content}</p>
+      )}
       <CommentForm />
       <div
         style={{
@@ -42,12 +50,14 @@ const Post = ({ post }) => {
           ))}
       </div>
       {post.myPost && (
-        <>
-          <button type="button" onClick={() => onDelPost(post.id)}>
-            삭제
-          </button>
-          <button type="button">수정</button>
-        </>
+        <button type="button" onClick={onEditPost}>
+          {isEdit ? "완료" : "수정"}
+        </button>
+      )}
+      {post.myPost && (
+        <button type="button" onClick={onDeletePost}>
+          삭제
+        </button>
       )}
     </div>
   );
