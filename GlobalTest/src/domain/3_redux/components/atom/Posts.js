@@ -2,10 +2,9 @@ import { useSelector } from "react-redux";
 import Post from "./Post/Post";
 
 const AllPosts = () => {
-  const state = useSelector((state) => state);
-  console.log(state);
-  const posts = useSelector((state) => state.postReducer);
-  console.log(posts);
+
+      // 매개변수명은 상관없음  ⬇️
+  const posts = useSelector((store) => store.PostReducer);
 
   return (
     <div>

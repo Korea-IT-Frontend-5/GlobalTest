@@ -1,7 +1,4 @@
-import { useDispatch } from "react-redux";
 import NavigateButton from "../../../../components/NavigateButton";
-import { ADD_POST } from "../../../../store/4_redux";
-
 import PostForm from "../atom/Post/Form";
 import AllPosts from "../atom/Posts";
 
@@ -29,37 +26,13 @@ const ReduxQ1Page = () => {
             src/store/4_redux.js에 구현해주세요.
   */
 
-  // const [Posts, setPosts] = useState(MockPosts(10));
-  const dispatch = useDispatch();
-
-  const onSubmit = (title, content) => {
-    console.log('submit');
-
-    dispatch(
-      ADD_POST({
-        Comments: [],
-        Post_img: [''],
-        User: {
-          id: Math.floor(Math.random() * 10000),
-          nickname: 'Doeunn',
-          profileImg:
-            'https://i.pinimg.com/originals/d6/6b/7b/d66b7bc6d790cee508541fe1f80a3a2a.jpg',
-        },
-        content,
-        createdAt: new Date(),
-        id: Math.floor(Math.random() * 10000),
-        myPost: true,
-        title,
-      })
-    );
-  };
 
   return (
-    <>
-      <PostForm onSubmit={onSubmit} />
+    <div>
+      <PostForm />
       <AllPosts />
       <NavigateButton isLastPage />
-    </>
+    </div>
   );
 };
 export default ReduxQ1Page;
