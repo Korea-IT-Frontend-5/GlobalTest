@@ -1,6 +1,4 @@
-import { useState } from "react";
 import NavigateButton from "../../../../components/NavigateButton";
-import { MockPosts } from "../../../../__mock__/mockPosts";
 import PostForm from "../atom/Post/Form";
 import AllPosts from "../atom/Posts";
 
@@ -28,15 +26,11 @@ const ReduxQ1Page = () => {
             src/store/4_redux.js에 구현해주세요.
   */
 
-  const [Posts, setPosts] = useState(MockPosts(10));
-  const onSubmit = (e) => {
-    console.log("submit");
-  };
 
   return (
     <div>
-      <PostForm onSubmit={onSubmit} />
-      <AllPosts posts={Posts} />
+      <PostForm />
+      <AllPosts />
       <NavigateButton isLastPage />
     </div>
   );
